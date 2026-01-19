@@ -1,4 +1,4 @@
-const { getHomeFolders, createFolder, deleteFolder, editFolder } = require("../services/home");
+const { getHomeFolders, createFolder, deleteFolder, editFolder, indexAllMediaInFolder } = require("../services/home");
 
 const router = require("express").Router();
 
@@ -44,6 +44,18 @@ const initHome = () => {
     try {
       await createFolder(name);
       res.status(200).json({status: 'Success', code: 200, payload: 'Folder created successfully'});
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({status: 'Error', code: 500, payload: 'Internal Server Error'});
+    }
+  });
+
+  router.post("/fix_folders", async (req, res) => {
+    const { folder } = req.query;
+
+    try {
+      await indexAllMediaInFolder(folder);
+      res.status(200).json({status: 'Success', code: 200, payload: 'Folder media indexed successfully'});
     } catch (err) {
       console.error(err);
       res.status(500).json({status: 'Error', code: 500, payload: 'Internal Server Error'});

@@ -1,6 +1,6 @@
 
 const DIRECTORY = {
-  ROOT: 'G:/.family_albums',
+  ROOT: 'D:/.family_albums',
 }
 
 module.exports = {
